@@ -7,6 +7,10 @@
     "start": "ENV=production node server",
     "dev": "nodemon server"
   },
+  "engines": {
+    "node": ">=15.4.0",
+    "npm": ">=7.0.15"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
