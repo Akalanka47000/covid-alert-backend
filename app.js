@@ -32,12 +32,12 @@ app.use("/notification", require("./routes/notification"));
 
 const PORT = process.env.PORT || 8000;
 
-// app.listen(
-//   PORT,
-//   console.log(
-//     `Server running in ${process.env.ENV} mode on port ${PORT}`
-//   )
-// );
+app.listen(
+  PORT,
+  console.log(
+    `Server running in ${process.env.ENV} mode on port ${PORT}`
+  )
+);
 
 //Setup Error Handlers
 const errorHandlers = require("./handlers/errorHandlers");
@@ -49,7 +49,6 @@ if (process.env.ENV === "DEVELOPMENT") {
   app.use(errorHandlers.productionErrors);
 }
 
-app.listen(PORT, () => console.log(`Example app listening on port ${port}!`))
 
 
 
