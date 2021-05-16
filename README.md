@@ -1,1 +1,1 @@
-# covid-alert-backend
+# qickChat
