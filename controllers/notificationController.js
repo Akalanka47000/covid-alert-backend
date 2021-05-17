@@ -1,4 +1,4 @@
-
+const Image = require("../models/Image");
 const User = require("../models/User");
 
 var admin = require("firebase-admin");
@@ -25,7 +25,7 @@ exports.sendNotification = async (req, res) => {
     for(let i=0;i<users.length;i++){
       let distance=getDistance(latitude,longitude,users[i].location.latitude,users[i].location.longitude);
       console.log(distance);
-      if(distance<1){
+      if(distance<1 && users[i].notifications==true){
         var registrationToken = users[i].firebaseToken;
         var payload = {
           notification: {
@@ -57,6 +57,8 @@ exports.sendNotification = async (req, res) => {
     return degrees * Math.PI / 180;
   }
   
+
+  //returns distance in km between two geo co-ords
   function getDistance(lat1, lon1, lat2, lon2) {
     var earthRadiusKm = 6371;
   
@@ -71,3 +73,23 @@ exports.sendNotification = async (req, res) => {
     var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
     return earthRadiusKm * c;
   }
+
+  exports.uploadImage = async (req, res) => {
+
+    const { base64URL } = req.body;
+  
+    // Validate image
+    if (!base64URL ) {
+      return res.status(400).json({
+        message: "Please upload an image",
+      });
+    }
+
+    await Image.create({
+      base64URL
+    });
+
+    return res.status(200).json({
+          message: `Image uploaded`,
+    });
+  };

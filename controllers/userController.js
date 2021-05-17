@@ -85,9 +85,9 @@ exports.login = async (req, res) => {
 // @route   PUT /users/location/:id
 // @access  Private/Admin
 
-exports.updateLocation =async (req, res,next) => {
+exports.updateUser =async (req, res,next) => {
 
-  const { location } = req.body;
+  // const { location } = req.body;
 
   let user = await User.findById(req.params.id);
  
@@ -100,13 +100,13 @@ exports.updateLocation =async (req, res,next) => {
   }
 
    
-  if (!location.latitude || !location.longitude) {
-    return next(
-      res.status(400).json({
-        message: `latitude or longitude is missing`,
-      })
-    );
-  }
+  // if (!location.latitude || !location.longitude) {
+  //   return next(
+  //     res.status(400).json({
+  //       message: `latitude or longitude is missing`,
+  //     })
+  //   );
+  // }
 
    user = await User.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
@@ -138,5 +138,5 @@ const sendTokenResponse = (user, statusCode, res) => {
   res
     .status(statusCode)
     .cookie("token", token, options)
-    .json({ success: true,userID:user.id,token });
+    .json({ success: true,userID:user.id,notificationStatus:user.notifications,token });
 };

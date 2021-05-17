@@ -46,6 +46,10 @@ const UserSchema = new mongoose.Schema({
     type: String,
     default: "",
   },
+  notifications: {
+    type: Boolean,
+    default: true,
+  },
   location: {
     type:locationSchema,
     default:{
